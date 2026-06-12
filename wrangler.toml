@@ -1,0 +1,9 @@
+name = "ai-deal-finder"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[vars]
+# Sæt dine rigtige nøgler i Cloudflare Pages dashboard -> Settings -> Environment Variables
+# GOOGLE_GEMINI_API_KEY = ""
+# ANTHROPIC_API_KEY = ""
