@@ -9,5 +9,10 @@
 	"assets": {
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
-	}
+	},
+	"rules": [
+		{ "type": "ESModule", "globs": ["**/*.mjs"] },
+		{ "type": "CommonJS", "globs": ["**/*.cjs"] },
+		{ "type": "Data", "globs": ["**/*.wasm", "**/*.sql"] }
+	]
 }
