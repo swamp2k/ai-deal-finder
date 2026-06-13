@@ -1,7 +1,4 @@
-// default open-next.config.ts file created by @opennextjs/cloudflare
+// Minimal config – ingen R2 eller Durable Objects krævet
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
-import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";
 
-export default defineCloudflareConfig({
-	incrementalCache: r2IncrementalCache,
-});
+export default defineCloudflareConfig({});
