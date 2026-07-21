@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Deal Finder
 
-## Getting Started
+A small AI-powered shopping assistant (in Danish) that helps you find the best PC hardware deal for your needs.
 
-First, run the development server:
+Describe what you're looking for in plain language — e.g. *"Jeg har et GTX 1080 og vil gerne have et nyt under 2000 kr, med 8GB vram"* — pick which webshops to search (Proshop, Komplett, Elgiganten), and choose an AI model (Google Gemini or Claude Haiku). The app then:
+
+1. **Clarifies** — asks a couple of AI-generated multiple-choice follow-up questions to narrow down your requirements (`/api/clarify`).
+2. **Evaluates** — sends your prompt, answers, and search results to the chosen AI model, which ranks a Top 5 list of products with a badge, price, performance estimate, and reasoning for each pick (`/api/evaluate`).
+3. **Presents results** — shown in the UI, with an option to export the recommendations as a standalone HTML file.
+
+Product search is currently backed by mock data; the AI ranking/reasoning step is real when API keys are configured.
+
+## Tech stack
+
+- [Next.js](https://nextjs.org) (App Router) + React + TypeScript
+- [Anthropic SDK](https://www.npmjs.com/package/@anthropic-ai/sdk) (Claude Haiku) and [`@google/generative-ai`](https://www.npmjs.com/package/@google/generative-ai) (Gemini) for the AI calls
+- Deployed to Cloudflare Workers via [OpenNext](https://opennext.js.org/cloudflare)
+
+## Getting started
+
+Install dependencies and run the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To get real AI responses (instead of mock data) set:
 
-## Learn More
+```
+GOOGLE_GEMINI_API_KEY=your_key
+ANTHROPIC_API_KEY=your_key
+```
 
-To learn more about Next.js, take a look at the following resources:
+Without valid keys, both API routes fall back to mock questions/products so the app remains usable for local UI development.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start the Next.js dev server |
+| `npm run build` | Production build |
+| `npm run lint` | Run ESLint |
+| `npm run build:cf` | Build for Cloudflare Workers via OpenNext |
+| `npm run preview` | Build and preview the Cloudflare Workers build locally |
+| `npm run deploy` | Build and deploy to Cloudflare Workers |
